@@ -3,10 +3,12 @@ from user import User
 import secrets
 import redis
 import os
+from urllib.parse import urlparse
 
 reviews = []
-HOST = os.environ.get("REDIS_HOST")
-client = redis.Redis(host=HOST)
+
+url = urlparse(os.environ.get("REDIS_URL"))
+client = redis.Redis(host=url.hostname, port=url.port, username=url.username, password=url.password, ssl=True, ssl_cert_reqs=None)
 
 def get_all_reviwers():
     users = []

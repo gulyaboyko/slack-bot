@@ -51,6 +51,7 @@ def slack_events():
 # Main function
 # if __name__ == '__main__':
 
+
 @flask_app.route("/init", methods=["GET"])
 def add_users():
     create_reviewer("U01G45LR2BA", "Валерий Безуглый")
@@ -62,5 +63,10 @@ def add_users():
     create_reviewer("U015ZQ9QRC7", "Evgeny Kapanov")
     create_reviewer("U01DRQFPB8X", "Nikita Tepliakov")
     create_reviewer("UFGGE710R", "Denis Smirnov")
+    return "OK"
+
+
+@flask_app.route("/test", methods=["GET"])
+def test():
     return "OK"
 

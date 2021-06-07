@@ -19,7 +19,7 @@ def get_all_reviwers():
     for user_id in client.scan_iter():
         is_active = client.hget(user_id, "isActive").decode('utf-8') == "True"
         if is_active:
-            users.append(User(user_id.decode('utf-8'), client.hget(user_id, "name")))
+            users.append(User(user_id.decode('utf-8'), client.hget(user_id, "name").decode('utf-8')))
     return users
 
 

@@ -7,8 +7,12 @@ from urllib.parse import urlparse
 
 reviews = []
 
-url = urlparse(os.environ.get("REDIS_URL"))
-client = redis.Redis(host=url.hostname, port=url.port, username=url.username, password=url.password, ssl=True, ssl_cert_reqs=None)
+REDIS_URL = os.environ.get("REDIS_URL")
+if REDIS_URL is None:
+    client = redis.Redis()
+else:
+    url = urlparse(REDIS_URL)
+    client = redis.Redis(host=url.hostname, port=url.port, username=url.username, password=url.password, ssl=True, ssl_cert_reqs=None)
 
 def get_all_reviwers():
     users = []

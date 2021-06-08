@@ -32,7 +32,7 @@ def create_reviewer(user_id, name):
 def mark_reviewer(user_id, is_active):
     global reviews
     client.hset(user_id, 'isActive', is_active)
-    if bool == 0:
+    if is_active == "False":
         for review in reviews:
             if review.id == id:
                 reviews.remove(review)

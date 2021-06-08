@@ -1,4 +1,4 @@
-from get_random_user import get_random_reviewer, create_reviewer
+from get_random_user import get_random_reviewer, create_reviewer, mark_reviewer
 import os
 # Use the package we installed
 from slack_bolt import App
@@ -39,6 +39,22 @@ def random_user_generator(ack, say, command):
     say(f"{name} Вы успешно добавлены как ревьювер")
 
 
+@app.command("/on_vacation")
+def on_vacation(ack, say, command):
+    ack()
+    name = get_user_info(command["user_id"])
+    mark_reviewer(command["user_id"], "False")
+    say(f"{name} Вы успешно временно удалены из ревьюверов")
+
+
+@app.command("/returned_from_vacation")
+def returned_from_vacation(ack, say, command):
+    ack()
+    name = get_user_info(command["user_id"])
+    mark_reviewer(command["user_id"], "True")
+    say(f"{name} Вы успешно вернулись в ревьюверы")
+
+
 flask_app = Flask(__name__)
 handler = SlackRequestHandler(app)
 
@@ -66,7 +82,14 @@ def add_users():
     return "OK"
 
 
-@flask_app.route("/test", methods=["GET"])
-def test():
+@flask_app.route("/vacation", methods=["GET"])
+def add_users():
+    mark_reviewer("UFJ68B63H", "False")
+    return "OK"
+
+
+@flask_app.route("/back_vacation", methods=["GET"])
+def add_users():
+    mark_reviewer("UFJ68B63H", "True")
     return "OK"
 

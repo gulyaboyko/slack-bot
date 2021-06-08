@@ -83,13 +83,13 @@ def add_users():
 
 
 @flask_app.route("/vacation", methods=["GET"])
-def add_users():
+def vacation():
     mark_reviewer("UFJ68B63H", "False")
     return "OK"
 
 
 @flask_app.route("/back_vacation", methods=["GET"])
-def add_users():
+def back_vacation():
     mark_reviewer("UFJ68B63H", "True")
     return "OK"
 

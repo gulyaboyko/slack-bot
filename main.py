@@ -94,6 +94,7 @@ def back_vacation():
     mark_reviewer("UFJ68B63H", "True")
     return "OK"
 
+
 @flask_app.route("/all_users", methods=["GET"])
 def all_users():
     reviews = get_all_reviwers

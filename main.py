@@ -1,4 +1,5 @@
-from get_random_user import get_random_reviewer, create_reviewer, mark_reviewer
+from get_random_user import get_random_reviewer, create_reviewer, mark_reviewer, get_all_reviwers
+from user import User
 import os
 # Use the package we installed
 from slack_bolt import App
@@ -92,4 +93,12 @@ def vacation():
 def back_vacation():
     mark_reviewer("UFJ68B63H", "True")
     return "OK"
+
+@flask_app.route("/all_users", methods=["GET"])
+def back_vacation():
+    reviews = get_all_reviwers
+    users = ""
+    for user in reviews:
+        users += " " + user.name
+    return users
 

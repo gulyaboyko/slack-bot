@@ -99,6 +99,6 @@ def all_users():
     reviews = get_all_reviwers
     users = ""
     for user in reviews:
-        users += " " + user.name
+        users = user.name
     return users
 

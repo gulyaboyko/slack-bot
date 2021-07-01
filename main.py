@@ -95,7 +95,7 @@ def back_vacation():
     return "OK"
 
 @flask_app.route("/all_users", methods=["GET"])
-def back_vacation():
+def all_users():
     reviews = get_all_reviwers
     users = ""
     for user in reviews:

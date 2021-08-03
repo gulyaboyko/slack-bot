@@ -20,6 +20,15 @@ def get_user_info(user_id):
     result = client.users_info(user=user_id)
     return result["user"]["profile"]["display_name"]
 
+def get_user_info_by_login(user_login):
+    result = client.users_list()
+    for user in result["members"]:
+        print(user)
+        # Key user info on their unique user ID
+        # user_id = user["id"]
+        # # Store the entire user object (you may not need all of the info)
+        # users_store[user_id] = user
+
 
 @app.command("/random-reviewer")
 def random_user_generator(ack, say, command):
@@ -44,8 +53,9 @@ def random_user_generator(ack, say, command):
 def on_vacation(ack, say, command):
     ack()
     name = get_user_info(command["user_id"])
+    get_user_info_by_login(command['text'])
     # mark_reviewer(command["user_id"], "False")
-    say(f"{command['user_id']} Вы успешно временно удалены из ревьюверов f{command['text']}")
+    say(f"{command['user_id']} Доработка кода - удаление из ревьюверов не работает")
 
 
 @app.command("/returned_from_vacation")

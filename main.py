@@ -18,7 +18,6 @@ client = WebClient(token=os.environ.get("SLACK_BOT_TOKEN", ""))
 
 def get_user_info(user_id):
     result = client.users_info(user=user_id)
-    client.users.
     return result["user"]["profile"]["display_name"]
 
 

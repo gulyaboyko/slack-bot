@@ -43,7 +43,7 @@ def random_user_generator(ack, say, command):
 @app.command("/on_vacation")
 def on_vacation(ack, say, command):
     ack()
-    name = get_user_info(command["user_id"])
+    name = get_user_info(command['text'])
     # mark_reviewer(command["user_id"], "False")
     say(f"{name} Вы успешно временно удалены из ревьюверов f{command['text']}")
 

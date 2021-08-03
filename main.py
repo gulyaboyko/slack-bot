@@ -45,7 +45,7 @@ def on_vacation(ack, say, command):
     ack()
     name = get_user_info(command["user_id"])
     # mark_reviewer(command["user_id"], "False")
-    say(f"{name} Вы успешно временно удалены из ревьюверов f{command['text']}")
+    say(f"{command['user_id']} Вы успешно временно удалены из ревьюверов f{command['text']}")
 
 
 @app.command("/returned_from_vacation")

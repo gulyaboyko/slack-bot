@@ -18,6 +18,7 @@ client = WebClient(token=os.environ.get("SLACK_BOT_TOKEN", ""))
 
 def get_user_info(user_id):
     result = client.users_info(user=user_id)
+    client.users.
     return result["user"]["profile"]["display_name"]
 
 
@@ -85,7 +86,7 @@ def add_users():
 
 @flask_app.route("/vacation", methods=["GET"])
 def vacation():
-    mark_reviewer("UFJ68B63H", "False")
+    mark_reviewer("UFGGE710R", "False")
     return "OK"
 
 

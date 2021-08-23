@@ -3,7 +3,7 @@ from user import User
 import secrets
 import redis
 import os
-
+import sys
 
 reviews = []
 
@@ -73,6 +73,8 @@ def get_random_reviewer(current_user_id):
     the_same_group_reviewers = []
     secure_random = secrets.SystemRandom()
     current_user_group = get_current_user_group(current_user_id)
+    print("current group - {current_user_group}")
+    sys.stdout.flush()
 
     for review in reviews:
         if review.id != current_user_id:
@@ -87,6 +89,8 @@ def get_random_reviewer(current_user_id):
         all_reviews = copy.deepcopy(get_all_reviwers())
         for review in all_reviews:
             if review.id != current_user_id:
+                print("not current user with {review.group}")
+                sys.stdout.flush()
                 if review.group == current_user_group:
                     the_same_group_reviewers.append(review)
 

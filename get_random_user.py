@@ -20,7 +20,9 @@ def get_all_reviwers():
         is_active = client.hget(user_id, "isActive").decode('utf-8') == "True"
         is_real = client.exists(user_id, "name")
         name = client.hget(user_id, "name").decode('utf-8')
-        group = client.hget(user_id, "group").decode('utf-8')
+        group = ""
+        if client.exists(user_id, "group"):
+            group = client.hget(user_id, "group")
         if is_active & is_real:
             users.append(User(user_id.decode('utf-8'), name, group))
     return users

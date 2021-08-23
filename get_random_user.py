@@ -34,10 +34,9 @@ def get_current_user_group(current_user_id):
     for user_id in client.scan_iter():
         group = ""
         is_current = str(user_id.decode('utf-8')) == str(current_user_id)
-        is_real = client.exists(user_id, "group")
-        print("is current" + str(is_current))
-        print("is current from bd" + str(user_id.decode('utf-8')))
-        print("is current from arguments" + str(current_user_id))
+        is_real = client.exists(current_user_id, "group")
+        print("is current " + str(is_current))
+        print("is is_real " + str(is_real))
         sys.stdout.flush()
         if is_real & is_current:
             group = client.hget(user_id, "group")

@@ -1,4 +1,4 @@
-from get_random_user import get_random_reviewer, create_reviewer, mark_reviewer, add_group
+from get_random_user import get_random_reviewer, create_reviewer, mark_reviewer, add_group, get_all_reviwers
 from user import User
 import os
 # Use the package we installed
@@ -6,6 +6,7 @@ from slack_bolt import App
 from slack_sdk import WebClient
 from flask import Flask, request
 from slack_bolt.adapter.flask import SlackRequestHandler
+import sys
 
 # Slack bolt - wtf
 app = App(
@@ -84,9 +85,12 @@ def slack_events():
     # handler runs App's dispatch method
     return handler.handle(request)
 
-@flask_app.route("/vacation", methods=["GET"])
+@flask_app.route("/users", methods=["GET"])
 def vacation():
-    mark_reviewer("UFGGE710R", "False")
+    users = get_all_reviwers()
+    for user in users:
+        print("user id " + str(user.id) + "user name " + str(user.name) + "user group " + str(user.group))
+        sys.stdout.flush()
     return "OK"
 
 

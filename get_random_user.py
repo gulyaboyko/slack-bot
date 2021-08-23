@@ -17,7 +17,9 @@ else:
 def get_all_reviwers():
     users = []
     for user_id in client.scan_iter():
-        is_active = client.hget(user_id, "isActive").decode('utf-8') == "True"
+        is_active = False
+        if client.exists(user_id, "isActive"):
+            is_active = client.hget(user_id, "isActive").decode('utf-8') == "True"
         is_real = client.exists(user_id, "name")
         group = ""
         if client.exists(user_id, "group"):

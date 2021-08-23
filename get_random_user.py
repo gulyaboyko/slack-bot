@@ -30,6 +30,14 @@ def get_all_reviwers():
     return users
 
 
+def get_current_user_group(current_user_id):
+    for user_id in client.scan_iter():
+        group = ""
+        if client.exists(user_id, "group") & user_id == current_user_id:
+            group = client.hget(user_id, "group")
+    return group
+
+
 def create_reviewer(user_id, name, group):
     client.hset(user_id, 'name', name)
     client.hset(user_id, 'group', group)
@@ -49,7 +57,7 @@ def mark_reviewer(user_id, is_active):
                 reviews.remove(review)
 
 
-def get_random_reviewer(excluded_id):
+def get_random_reviewer(current_user_id):
     global reviews
     if not reviews:
         reviews = copy.deepcopy(get_all_reviwers())
@@ -62,17 +70,11 @@ def get_random_reviewer(excluded_id):
     other_group_reviewers = []
     the_same_group_reviewers = []
     secure_random = secrets.SystemRandom()
-
-    # Найдем текущего пользователя чтоб узнать его группу
-    my_filter = filter(lambda x: x.id == excluded_id, reviews)
-    current_user = next(my_filter)
-
-    if not current_user:
-        return []
+    current_user_group = get_current_user_group(current_user_id)
 
     for review in reviews:
-        if review.id != current_user.id:
-            if review.group == current_user.group:
+        if review.id != current_user_id:
+            if review.group == current_user_group:
                 the_same_group_reviewers.append(review)
             else:
                 other_group_reviewers.append(review)
@@ -82,8 +84,8 @@ def get_random_reviewer(excluded_id):
         # и надо их взять во временный массив
         all_reviews = copy.deepcopy(get_all_reviwers())
         for review in all_reviews:
-            if review.id != current_user.id:
-                if review.group == current_user.group:
+            if review.id != current_user_id:
+                if review.group == current_user_group:
                     the_same_group_reviewers.append(review)
 
     if len(the_same_group_reviewers) == 0:
@@ -92,7 +94,7 @@ def get_random_reviewer(excluded_id):
             reviews = []
             reviews = copy.deepcopy(get_all_reviwers())
             for review in reviews:
-                if review.id != current_user.id:
+                if review.id != current_user_id:
                     other_group_reviewers.append(review)
             users = secure_random.sample(other_group_reviewers, 2)
         elif len(other_group_reviewers) == 1:
@@ -102,7 +104,7 @@ def get_random_reviewer(excluded_id):
             reviews = copy.deepcopy(get_all_reviwers())
             _reviewers = []
             for review in reviews:
-                if review.id != current_user.id and review.id != first_user.id:
+                if review.id != current_user_id and review.id != first_user.id:
                     _reviewers.append(review)
             users = [first_user, secure_random.sample(_reviewers, 1)[0]]
         else:
@@ -114,7 +116,7 @@ def get_random_reviewer(excluded_id):
             reviews = copy.deepcopy(get_all_reviwers())
             _reviewers = []
             for review in reviews:
-                if review.id != current_user.id and review.id != the_same_group_reviewer.id:
+                if review.id != current_user_id and review.id != the_same_group_reviewer.id:
                     _reviewers.append(review)
             other_group_reviewer = secure_random.sample(_reviewers, 1)[0]
         else:

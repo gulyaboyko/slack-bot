@@ -41,7 +41,8 @@ def get_current_user_group(current_user_id):
         sys.stdout.flush()
         if is_real & is_current:
             group = client.hget(user_id, "group")
-    return group
+    print("group " + str(group))
+    return str(group)
 
 
 def create_reviewer(user_id, name, group):

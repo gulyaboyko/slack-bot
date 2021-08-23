@@ -94,7 +94,7 @@ def get_random_reviewer(current_user_id):
         all_reviews = copy.deepcopy(get_all_reviwers())
         for review in all_reviews:
             if review.id != current_user_id:
-                print("not current user with" + str(review.group))
+                print("not current user with " + str(review.group) + "current group is " + str(current_user_group))
                 sys.stdout.flush()
                 if review.group == current_user_group:
                     the_same_group_reviewers.append(review)

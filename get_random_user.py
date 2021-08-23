@@ -31,8 +31,8 @@ def get_all_reviwers():
 
 
 def get_current_user_group(current_user_id):
+    group = ""
     for user_id in client.scan_iter():
-        group = ""
         is_current = str(user_id.decode('utf-8')) == str(current_user_id)
         is_real = client.exists(current_user_id, "group")
         print("is current " + str(is_current))
@@ -41,9 +41,10 @@ def get_current_user_group(current_user_id):
         sys.stdout.flush()
         if is_real & is_current:
             group = client.hget(current_user_id, "group")
+            return group
             print("group " + str(group))
             sys.stdout.flush()
-    return str(group)
+    return group
 
 
 def create_reviewer(user_id, name, group):

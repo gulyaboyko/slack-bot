@@ -86,7 +86,7 @@ def slack_events():
     return handler.handle(request)
 
 @flask_app.route("/users", methods=["GET"])
-def vacation():
+def users():
     users = get_all_reviwers()
     for user in users:
         print("user id " + str(user.id) + "user name " + str(user.name) + "user group " + str(user.group))

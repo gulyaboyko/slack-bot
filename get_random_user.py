@@ -3,7 +3,7 @@ from user import User
 import secrets
 import redis
 import os
-from urllib.parse import urlparse
+
 
 reviews = []
 
@@ -12,8 +12,7 @@ if REDIS_URL is None:
     client = redis.Redis()
 else:
     client = redis.from_url(REDIS_URL)
-    # url = urlparse(REDIS_URL)
-    # client = redis.Redis(host=url.hostname, port=url.port, username=url.username, password=url.password, ssl=True, ssl_cert_reqs=None)
+
 
 def get_all_reviwers():
     users = []
@@ -44,7 +43,7 @@ def mark_reviewer(user_id, is_active):
                 reviews.remove(review)
 
 
-def get_random_reviewer(excluded_id1):
+def get_random_reviewer(excluded_id):
     global reviews
     if not reviews:
         reviews = copy.deepcopy(get_all_reviwers())
@@ -54,40 +53,79 @@ def get_random_reviewer(excluded_id1):
         return []
 
     users = []
-    _reviewers = []
+    other_group_reviewers = []
+    the_same_group_reviewers = []
     secure_random = secrets.SystemRandom()
+
+    # Найдем текущего пользователя чтоб узнать его группу
+    my_filter = filter(lambda x: x.id == excluded_id, reviews)
+    current_user = next(my_filter).val
+
+    if not current_user:
+        return []
+
     for review in reviews:
-        if review.id != excluded_id1:
-            _reviewers.append(review)
-    if len(_reviewers) == 0:
-        # Когда или изначально массив уже весь перевыбран
-        # или остался 1 и это тот кто запрашивает себе ревьювера
-        reviews = []
-        reviews = copy.deepcopy(get_all_reviwers())
-        for review in reviews:
-            if review.id != excluded_id1:
-                _reviewers.append(review)
-        users = secure_random.sample(_reviewers, 2)
-    elif len(_reviewers) == 1:
-        first_user = _reviewers[0]
-        reviews = []
-        reviews = copy.deepcopy(get_all_reviwers())
-        _reviewers = []
-        for review in reviews:
-            if review.id != excluded_id1 and review.id != first_user.id:
-                _reviewers.append(review)
-        users = [first_user, secure_random.sample(_reviewers, 1)[0]]
-    elif len(_reviewers) == 2:
-        # Возвращаем 2
-        users = _reviewers
-    elif len(_reviewers) > 2:
-        # Возвращаем любых 2
-        users = secure_random.sample(_reviewers, 2)
+        if review.id != current_user.id:
+            if review.group == current_user.group:
+                the_same_group_reviewers.append(review)
+            else:
+                other_group_reviewers.append(review)
+
+    if len(the_same_group_reviewers) == 0:
+        # Или нет совсем людей из стрима, или уже были выбраны
+        # и надо их взять во временный массив
+        all_reviews = copy.deepcopy(get_all_reviwers())
+        for review in all_reviews:
+            if review.id != current_user.id:
+                if review.group == current_user.group:
+                    the_same_group_reviewers.append(review)
+
+    if len(the_same_group_reviewers) == 0:
+        # Нет из такого же стрима людей на проекте -> брать из 2 любых
+        if len(other_group_reviewers) == 0:
+            reviews = []
+            reviews = copy.deepcopy(get_all_reviwers())
+            for review in reviews:
+                if review.id != current_user.id:
+                    other_group_reviewers.append(review)
+            users = secure_random.sample(other_group_reviewers, 2)
+        elif len(other_group_reviewers) == 1:
+            # Остался 1 не выбранный, но надо добавить еще 1
+            first_user = other_group_reviewers[0]
+            reviews = []
+            reviews = copy.deepcopy(get_all_reviwers())
+            _reviewers = []
+            for review in reviews:
+                if review.id != current_user.id and review.id != first_user.id:
+                    _reviewers.append(review)
+            users = [first_user, secure_random.sample(_reviewers, 1)[0]]
+        else:
+            users = secure_random.sample(other_group_reviewers, 2)
+    else:
+        the_same_group_reviewer = secure_random.sample(the_same_group_reviewers, 1)[0]
+        if len(other_group_reviewers) == 0:
+            reviews = []
+            reviews = copy.deepcopy(get_all_reviwers())
+            _reviewers = []
+            for review in reviews:
+                if review.id != current_user.id and review.id != the_same_group_reviewer.id:
+                    _reviewers.append(review)
+            other_group_reviewer = secure_random.sample(_reviewers, 1)[0]
+        else:
+            other_group_reviewer = secure_random.sample(other_group_reviewers, 1)[0]
+        users = [the_same_group_reviewer, other_group_reviewer]
 
     if len(users) == 2:
         remove_reviewers(users[0].id, users[1].id)
         return users
 
+
+def get_random_reviewer_from(array):
+    if len(array) < 1:
+        return []
+    secure_random = secrets.SystemRandom()
+    user = secure_random.sample(array, 1)[0]
+    return [user]
 
 def remove_reviewers(id1, id2):
     global reviews

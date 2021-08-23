@@ -19,7 +19,7 @@ def get_all_reviwers():
     for user_id in client.scan_iter():
         is_active = False
         if client.exists(user_id, "isActive"):
-            is_active = (client.hget(user_id, "isActive") or "False").decode('utf-8') == "True"
+            is_active = client.hget(user_id, "isActive").decode('utf-8') or "False" == "True"
         is_real = client.exists(user_id, "name")
         group = ""
         if client.exists(user_id, "group"):
@@ -65,7 +65,7 @@ def get_random_reviewer(excluded_id):
 
     # Найдем текущего пользователя чтоб узнать его группу
     my_filter = filter(lambda x: x.id == excluded_id, reviews)
-    current_user = next(my_filter).val
+    current_user = next(my_filter)
 
     if not current_user:
         return []

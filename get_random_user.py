@@ -25,9 +25,14 @@ def get_all_reviwers():
     return users
 
 
-def create_reviewer(user_id, name):
+def create_reviewer(user_id, name, group):
     client.hset(user_id, 'name', name)
+    client.hset(user_id, 'group', group)
     client.hset(user_id, 'isActive', "True")
+
+
+def add_group(user_id, group):
+    client.hset(user_id, 'group', group)
 
 
 def mark_reviewer(user_id, is_active):

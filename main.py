@@ -1,4 +1,4 @@
-from get_random_user import get_random_reviewer, create_reviewer, mark_reviewer, get_all_reviwers
+from get_random_user import get_random_reviewer, create_reviewer, mark_reviewer, add_group
 from user import User
 import os
 # Use the package we installed
@@ -45,7 +45,8 @@ def random_user_generator(ack, say, command):
 def random_user_generator(ack, say, command):
     ack()
     name = get_user_info(command["user_id"])
-    create_reviewer(command["user_id"], name)
+    group = command["text"].casefold()
+    create_reviewer(command["user_id"], name, group)
     say(f"{name} Вы успешно добавлены как ревьювер")
 
 
@@ -53,9 +54,17 @@ def random_user_generator(ack, say, command):
 def on_vacation(ack, say, command):
     ack()
     name = get_user_info(command["user_id"])
-    # get_user_info_by_login(command['text'])
     mark_reviewer(command["user_id"], "False")
     say(f"{name} Вы успешно временно удалены из ревьюверов")
+
+
+@app.command("/add_group")
+def on_vacation(ack, say, command):
+    ack()
+    name = get_user_info(command["user_id"])
+    group = command["text"].casefold()
+    add_group(command["user_id"], group)
+    say(f"{name} Вы успешно добавлены в стрим {group}")
 
 
 @app.command("/returned_from_vacation")
@@ -75,24 +84,6 @@ def slack_events():
     # handler runs App's dispatch method
     return handler.handle(request)
 
-# Main function
-# if __name__ == '__main__':
-
-
-@flask_app.route("/init", methods=["GET"])
-def add_users():
-    create_reviewer("U01G45LR2BA", "Валерий Безуглый")
-    create_reviewer("U01V2JK6YE5", "Turalin Arman")
-    create_reviewer("U01QJ7BDQHE", "Vladimir Boyko")
-    create_reviewer("U01ASCDRBP0", "Сергей Мустафаев")
-    create_reviewer("UFJ68B63H", "Roman Aleksandrov")
-    create_reviewer("U01AVKUKECC", "Vladislav Lisianskii")
-    create_reviewer("U015ZQ9QRC7", "Evgeny Kapanov")
-    create_reviewer("U01DRQFPB8X", "Nikita Tepliakov")
-    create_reviewer("UFGGE710R", "Denis Smirnov")
-    return "OK"
-
-
 @flask_app.route("/vacation", methods=["GET"])
 def vacation():
     mark_reviewer("UFGGE710R", "False")
@@ -104,12 +95,4 @@ def back_vacation():
     mark_reviewer("UFJ68B63H", "True")
     return "OK"
 
-
-@flask_app.route("/all_users", methods=["GET"])
-def all_users():
-    reviews = get_all_reviwers
-    users = ""
-    # for user in reviews:
-    #     users += " " + user.name
-    return users
 

@@ -35,15 +35,9 @@ def get_current_user_group(current_user_id):
     for user_id in client.scan_iter():
         is_current = str(user_id.decode('utf-8')) == str(current_user_id)
         is_real = client.exists(current_user_id, "group")
-        print("is current " + str(is_current))
-        print("is is_real " + str(is_real))
-        print("result 1 " + str(is_real & is_current))
-        sys.stdout.flush()
         if is_real & is_current:
             group = client.hget(current_user_id, "group")
             return group
-            print("group " + str(group))
-            sys.stdout.flush()
     return group
 
 
@@ -80,8 +74,6 @@ def get_random_reviewer(current_user_id):
     the_same_group_reviewers = []
     secure_random = secrets.SystemRandom()
     current_user_group = get_current_user_group(current_user_id)
-    print("current group" + str(current_user_group))
-    sys.stdout.flush()
 
     for review in reviews:
         if review.id != current_user_id:
@@ -96,8 +88,6 @@ def get_random_reviewer(current_user_id):
         all_reviews = copy.deepcopy(get_all_reviwers())
         for review in all_reviews:
             if review.id != current_user_id:
-                print("not current user with " + str(review.group) + "current group is " + str(current_user_group))
-                sys.stdout.flush()
                 if review.group == current_user_group:
                     the_same_group_reviewers.append(review)
 
@@ -113,25 +103,13 @@ def get_random_reviewer(current_user_id):
         elif len(other_group_reviewers) == 1:
             # Остался 1 не выбранный, но надо добавить еще 1
             first_user = other_group_reviewers[0]
-            reviews = []
-            reviews = copy.deepcopy(get_all_reviwers())
-            _reviewers = []
-            for review in reviews:
-                if review.id != current_user_id and review.id != first_user.id:
-                    _reviewers.append(review)
-            users = [first_user, secure_random.sample(_reviewers, 1)[0]]
+            users = [first_user, get_second_reviewer(current_user_id, first_user.id)]
         else:
             users = secure_random.sample(other_group_reviewers, 2)
     else:
         the_same_group_reviewer = secure_random.sample(the_same_group_reviewers, 1)[0]
         if len(other_group_reviewers) == 0:
-            reviews = []
-            reviews = copy.deepcopy(get_all_reviwers())
-            _reviewers = []
-            for review in reviews:
-                if review.id != current_user_id and review.id != the_same_group_reviewer.id:
-                    _reviewers.append(review)
-            other_group_reviewer = secure_random.sample(_reviewers, 1)[0]
+            other_group_reviewer = get_second_reviewer(current_user_id, the_same_group_reviewer.id)
         else:
             other_group_reviewer = secure_random.sample(other_group_reviewers, 1)[0]
         users = [the_same_group_reviewer, other_group_reviewer]
@@ -139,6 +117,16 @@ def get_random_reviewer(current_user_id):
     if len(users) == 2:
         remove_reviewers(users[0].id, users[1].id)
         return users
+
+
+def get_second_reviewer(current_user_id, first_reviewer_user_id):
+    secure_random = secrets.SystemRandom()
+    all_reviewers = copy.deepcopy(get_all_reviwers())
+    _reviewers = []
+    for review in all_reviewers:
+        if review.id != current_user_id and review.id != first_reviewer_user_id:
+            _reviewers.append(review)
+    return secure_random.sample(_reviewers, 1)[0]
 
 
 def remove_reviewers(id1, id2):

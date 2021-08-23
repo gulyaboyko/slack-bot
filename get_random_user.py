@@ -37,10 +37,12 @@ def get_current_user_group(current_user_id):
         is_real = client.exists(current_user_id, "group")
         print("is current " + str(is_current))
         print("is is_real " + str(is_real))
+        print("result 1 " + str(is_real & is_current))
         sys.stdout.flush()
         if is_real & is_current:
             group = client.hget(current_user_id, "group")
-    print("group " + str(group))
+            print("group " + str(group))
+            sys.stdout.flush()
     return str(group)
 
 

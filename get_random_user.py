@@ -19,8 +19,10 @@ def get_all_reviwers():
     for user_id in client.scan_iter():
         is_active = client.hget(user_id, "isActive").decode('utf-8') == "True"
         is_real = client.exists(user_id, "name")
+        name = client.hget(user_id, "name").decode('utf-8')
+        group = client.hget(user_id, "group").decode('utf-8')
         if is_active & is_real:
-            users.append(User(user_id.decode('utf-8'), client.hget(user_id, "name").decode('utf-8')))
+            users.append(User(user_id.decode('utf-8'), name, group))
     return users
 
 
@@ -119,13 +121,6 @@ def get_random_reviewer(excluded_id):
         remove_reviewers(users[0].id, users[1].id)
         return users
 
-
-def get_random_reviewer_from(array):
-    if len(array) < 1:
-        return []
-    secure_random = secrets.SystemRandom()
-    user = secure_random.sample(array, 1)[0]
-    return [user]
 
 def remove_reviewers(id1, id2):
     global reviews

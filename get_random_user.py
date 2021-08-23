@@ -33,7 +33,7 @@ def get_all_reviwers():
 def get_current_user_group(current_user_id):
     for user_id in client.scan_iter():
         group = ""
-        if client.exists(user_id, "group") & user_id == current_user_id:
+        if client.exists(user_id, "group") & user_id.decode('utf-8') == current_user_id:
             group = client.hget(user_id, "group")
     return group
 

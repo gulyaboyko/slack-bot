@@ -47,7 +47,7 @@ def all_users(ack, say, command):
     ack()
     users = get_all_users()
     for user in users:
-        say(f"<@{user.id}> в стриме <{user.group}>")
+        say(f"<@{user.id}> в стриме {user.group}")
 
 
 @app.command("/add_me_to_reviewers")

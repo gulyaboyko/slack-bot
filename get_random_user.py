@@ -14,6 +14,18 @@ else:
     client = redis.from_url(REDIS_URL)
 
 
+def get_all_users():
+    users = []
+    for user_id in client.scan_iter():
+        name = ""
+        if client.exists(user_id, "name"):
+            name = client.hget(user_id, "name").decode('utf-8')
+        group = ""
+        if client.exists(user_id, "group"):
+            group = client.hget(user_id, "group")
+        users.append(User(user_id.decode('utf-8'), name, group))
+    return users
+
 def get_all_reviwers():
     users = []
     for user_id in client.scan_iter():

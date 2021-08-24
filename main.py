@@ -1,4 +1,4 @@
-from get_random_user import get_random_reviewer, create_reviewer, mark_reviewer, add_group, get_all_reviwers
+from get_random_user import get_random_reviewer, create_reviewer, mark_reviewer, add_group, get_all_reviwers, get_all_users
 from user import User
 import os
 # Use the package we installed
@@ -40,6 +40,14 @@ def random_user_generator(ack, say, command):
         say(f"{name} Ваш ревьювер <@{random_users[0].id}> и <@{random_users[1].id}> 🤘")
     else:
         say(f"{name} Что-то пошло не так - напиши Гуле")
+
+
+@app.command("/all_users")
+def all_users(ack, say, command):
+    ack()
+    users = get_all_users()
+    for user in users:
+        say(f"<@{user.id}> в стриме <{user.group}>")
 
 
 @app.command("/add_me_to_reviewers")

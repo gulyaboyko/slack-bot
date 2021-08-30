@@ -83,9 +83,9 @@ def get_random_reviewer(current_user_id, group):
     the_same_group_reviewers = []
     secure_random = secrets.SystemRandom()
     if group == "":
-        current_user_group = group
-    else:
         current_user_group = get_current_user_group(current_user_id)
+    else:
+        current_user_group = group
     print("current_user_group " + str(current_user_group))
     sys.stdout.flush()
 

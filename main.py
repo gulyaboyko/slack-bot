@@ -36,7 +36,7 @@ def random_user_generator(ack, say, command):
     ack()
     name = get_user_info(command["user_id"])
     group = ""
-    if command["text"]:
+    if "text" in command:
         group = command["text"].casefold().strip()
     random_users = get_random_reviewer(command["user_id"], group)
     if len(random_users) == 2:

@@ -38,8 +38,6 @@ def random_user_generator(ack, say, command):
     group = ""
     if "text" in command:
         group = command["text"].casefold().strip()
-    print("user id " + str(group))
-    sys.stdout.flush()
     random_users = get_random_reviewer(command["user_id"], group)
     if len(random_users) == 2:
         say(f"{name} Ваш ревьювер <@{random_users[0].id}> и <@{random_users[1].id}> 🤘")

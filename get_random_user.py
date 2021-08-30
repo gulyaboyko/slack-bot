@@ -86,7 +86,8 @@ def get_random_reviewer(current_user_id, group):
         current_user_group = group
     else:
         current_user_group = get_current_user_group(current_user_id)
-
+    print("current_user_group " + str(current_user_group))
+    sys.stdout.flush()
 
     for review in reviews:
         if review.id != current_user_id:

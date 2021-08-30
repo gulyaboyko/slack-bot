@@ -92,6 +92,8 @@ def get_random_reviewer(current_user_id, group):
     for review in reviews:
         if review.id != current_user_id:
             if review.group == current_user_group:
+                print("user from group " + str(review.name) + " " + + str(review.group))
+                sys.stdout.flush()
                 the_same_group_reviewers.append(review)
             else:
                 other_group_reviewers.append(review)

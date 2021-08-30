@@ -35,7 +35,9 @@ def get_user_info_by_login(user_login):
 def random_user_generator(ack, say, command):
     ack()
     name = get_user_info(command["user_id"])
-    group = command["text"].casefold().strip()
+    group = ""
+    if command["text"]:
+        group = command["text"].casefold().strip()
     random_users = get_random_reviewer(command["user_id"], group)
     if len(random_users) == 2:
         say(f"{name} Ваш ревьювер <@{random_users[0].id}> и <@{random_users[1].id}> 🤘")

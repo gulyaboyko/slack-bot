@@ -35,7 +35,8 @@ def get_user_info_by_login(user_login):
 def random_user_generator(ack, say, command):
     ack()
     name = get_user_info(command["user_id"])
-    random_users = get_random_reviewer(command["user_id"])
+    group = command["text"].casefold().strip()
+    random_users = get_random_reviewer(command["user_id"], group)
     if len(random_users) == 2:
         say(f"{name} Ваш ревьювер <@{random_users[0].id}> и <@{random_users[1].id}> 🤘")
     else:
@@ -54,7 +55,7 @@ def all_users(ack, say, command):
 def random_user_generator(ack, say, command):
     ack()
     name = get_user_info(command["user_id"])
-    group = command["text"].casefold()
+    group = command["text"].casefold().strip()
     create_reviewer(command["user_id"], name, group)
     say(f"{name} Вы успешно добавлены как ревьювер")
 
@@ -71,7 +72,7 @@ def on_vacation(ack, say, command):
 def on_vacation(ack, say, command):
     ack()
     name = get_user_info(command["user_id"])
-    group = command["text"].casefold()
+    group = command["text"].casefold().strip()
     add_group(command["user_id"], group)
     say(f"{name} Вы успешно добавлены в стрим {group}")
 

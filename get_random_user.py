@@ -69,7 +69,7 @@ def mark_reviewer(user_id, is_active):
                 reviews.remove(review)
 
 
-def get_random_reviewer(current_user_id):
+def get_random_reviewer(current_user_id, group):
     global reviews
     if not reviews:
         reviews = copy.deepcopy(get_all_reviwers())
@@ -82,7 +82,11 @@ def get_random_reviewer(current_user_id):
     other_group_reviewers = []
     the_same_group_reviewers = []
     secure_random = secrets.SystemRandom()
-    current_user_group = get_current_user_group(current_user_id)
+    if group == "":
+        current_user_group = group
+    else:
+        current_user_group = get_current_user_group(current_user_id)
+
 
     for review in reviews:
         if review.id != current_user_id:

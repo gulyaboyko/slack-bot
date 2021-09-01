@@ -107,7 +107,7 @@ def users():
 
 @flask_app.route("/back_vacation", methods=["GET"])
 def back_vacation():
-    mark_reviewer("U029VP39JTU", "True")
+    mark_reviewer("U029VP39JTU", "False")
     return "OK"
 
 

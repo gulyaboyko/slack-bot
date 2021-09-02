@@ -90,8 +90,7 @@ def get_random_reviewer(current_user_id, group):
     current_user_group = (current_user.group, group)[group == ""]
 
     print("user id " + str(current_user.id) + "user name " + str(current_user.name)
-          + "user group " + str(current_user.group) + "user command " +
-          str(current_user_group) + " " + str(current_user.group))
+          + "user group " + str(current_user.group) + str(current_user.command))
     sys.stdout.flush()
 
     if not reviews:
@@ -108,6 +107,9 @@ def get_random_reviewer(current_user_id, group):
 
 
     for review in reviews:
+        print("Review user id " + str(review.id) + "user name " + str(review.name)
+              + "user group " + str(review.group) + str(review.command))
+        sys.stdout.flush()
         if review.id != current_user_id:
             if review.group == current_user_group:
                 the_same_group_reviewers.append(review)

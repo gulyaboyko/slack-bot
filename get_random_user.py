@@ -39,8 +39,8 @@ def get_all_reviwers(current_comand):
         command = ""
         if client.exists(user_id, "command"):
             command = client.hget(user_id, "command")
-        the_same_command = str(current_comand) == str(command.decode('utf-8'))
-        print("the_same_command current" + str(current_comand) + "another user command " + str(command.decode('utf-8')))
+        the_same_command = str(current_comand) == str(command)
+        print("the_same_command current" + str(current_comand) + "another user command " + str(command))
         sys.stdout.flush()
         if is_active & is_real & the_same_command:
             name = client.hget(user_id, "name").decode('utf-8')

@@ -99,7 +99,7 @@ def slack_events():
 
 @flask_app.route("/users", methods=["GET"])
 def users():
-    users = get_all_reviwers()
+    users = get_all_users()
     for user in users:
         add_to_command(user.id, "ios")
         print("user id " + str(user.id) + "user name " + str(user.name)

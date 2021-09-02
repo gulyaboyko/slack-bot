@@ -52,18 +52,13 @@ def get_current_user(current_user_id):
     for user_id in client.scan_iter():
         is_current = str(user_id.decode('utf-8')) == str(current_user_id)
         if is_current:
-            print("is_current " + str(is_current))
-            sys.stdout.flush()
             group = ""
             if client.exists(current_user_id, "group"):
                 group = client.hget(current_user_id, "group")
             command = ""
             if client.exists(current_user_id, "command"):
                 command = client.hget(current_user_id, "command")
-            user = User(current_user_id, "", group, command)
-            print("user " + str(user.group) + " " + str(user.command))
-            sys.stdout.flush()
-            return user
+            return User(current_user_id, "", group, command)
 
 
 def create_reviewer(user_id, name, group):
@@ -94,7 +89,7 @@ def get_random_reviewer(current_user_id, group):
 
     current_user = get_current_user(current_user_id)
 
-    current_user_group = (current_user.group, group)[group == ""]
+    current_user_group = (group, current_user.group)[group == ""]
 
     print("user id " + str(current_user.id) + "user name " + str(current_user.name)
           + "user group " + str(current_user.group) + " " + str(current_user_group) + " " + str(group))

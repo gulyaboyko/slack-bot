@@ -89,6 +89,10 @@ def get_random_reviewer(current_user_id, group):
 
     current_user_group = (current_user.group, group)[group == ""]
 
+    print("user id " + str(current_user.id) + "user name " + str(current_user.name)
+          + "user group " + str(current_user.group) + "user command " + str(current_user_group))
+    sys.stdout.flush()
+
     if not reviews:
         reviews = copy.deepcopy(get_all_reviwers(current_user.command))
     if not reviews:

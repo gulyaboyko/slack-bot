@@ -60,7 +60,7 @@ def get_current_user(current_user_id):
             command = ""
             if client.exists(current_user_id, "command"):
                 command = client.hget(current_user_id, "command")
-            user = User(current_user_id.decode('utf-8'), "", group, command)
+            user = User(current_user_id, "", group, command)
             print("user " + str(user.group) + " " + str(user.command))
             sys.stdout.flush()
             return user

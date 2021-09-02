@@ -20,7 +20,10 @@ def get_all_users():
         group = ""
         if client.exists(user_id, "group"):
             group = client.hget(user_id, "group")
-        users.append(User(user_id.decode('utf-8'), "", group))
+        command = ""
+        if client.exists(user_id, "command"):
+            command = client.hget(user_id, "command")
+        users.append(User(user_id.decode('utf-8'), "", group, command))
     return users
 
 def get_all_reviwers():
@@ -33,9 +36,12 @@ def get_all_reviwers():
         group = ""
         if client.exists(user_id, "group"):
             group = client.hget(user_id, "group")
+        command = ""
+        if client.exists(user_id, "command"):
+            command = client.hget(user_id, "command")
         if is_active & is_real:
             name = client.hget(user_id, "name").decode('utf-8')
-            users.append(User(user_id.decode('utf-8'), name, group))
+            users.append(User(user_id.decode('utf-8'), name, group, command))
     return users
 
 
@@ -58,6 +64,10 @@ def create_reviewer(user_id, name, group):
 
 def add_group(user_id, group):
     client.hset(user_id, 'group', group)
+
+
+def add_to_command(user_id, command):
+    client.hset(user_id, 'command', command)
 
 
 def mark_reviewer(user_id, is_active):

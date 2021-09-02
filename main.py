@@ -1,4 +1,5 @@
-from get_random_user import get_random_reviewer, create_reviewer, mark_reviewer, add_group, get_all_reviwers, get_all_users
+from get_random_user import get_random_reviewer, create_reviewer, mark_reviewer, add_group, \
+                            get_all_reviwers, get_all_users, add_to_command
 from user import User
 import os
 # Use the package we installed
@@ -100,7 +101,9 @@ def slack_events():
 def users():
     users = get_all_reviwers()
     for user in users:
-        print("user id " + str(user.id) + "user name " + str(user.name) + "user group " + str(user.group))
+        add_to_command(user.id, "ios")
+        print("user id " + str(user.id) + "user name " + str(user.name)
+              + "user group " + str(user.group) + "user command " + str(user.command))
         sys.stdout.flush()
     return "OK"
 

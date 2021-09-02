@@ -51,6 +51,12 @@ def get_all_reviwers(current_comand):
 def get_current_user(current_user_id):
     for user_id in client.scan_iter():
         is_current = str(user_id.decode('utf-8')) == str(current_user_id)
+        print("is_current " + str(is_current))
+        sys.stdout.flush()
+        print(str(user_id.decode('utf-8')))
+        sys.stdout.flush()
+        print(str(current_user_id))
+        sys.stdout.flush()
         if is_current:
             group = ""
             if client.exists(user_id, "group"):

@@ -51,20 +51,19 @@ def get_all_reviwers(current_comand):
 def get_current_user(current_user_id):
     for user_id in client.scan_iter():
         is_current = str(user_id.decode('utf-8')) == str(current_user_id)
-        print("is_current " + str(is_current))
-        sys.stdout.flush()
-        print(str(user_id.decode('utf-8')))
-        sys.stdout.flush()
-        print(str(current_user_id))
-        sys.stdout.flush()
         if is_current:
+            print("is_current " + str(is_current))
+            sys.stdout.flush()
             group = ""
-            if client.exists(user_id, "group"):
-                group = client.hget(user_id, "group")
+            if client.exists(current_user_id, "group"):
+                group = client.hget(current_user_id, "group")
             command = ""
-            if client.exists(user_id, "command"):
-                command = client.hget(user_id, "command")
-            return User(user_id.decode('utf-8'), "", group, command)
+            if client.exists(current_user_id, "command"):
+                command = client.hget(current_user_id, "command")
+            user = User(current_user_id.decode('utf-8'), "", group, command)
+            print("user " + str(user.group) + " " + str(user.command))
+            sys.stdout.flush()
+            return user
 
 
 def create_reviewer(user_id, name, group):

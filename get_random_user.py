@@ -23,7 +23,10 @@ def get_all_users():
         command = ""
         if client.exists(user_id, "command"):
             command = client.hget(user_id, "command")
-        users.append(User(user_id.decode('utf-8'), "", group, command))
+        email = ""
+        if client.exists(user_id, "email"):
+            command = client.hget(user_id, "email")
+        users.append(User(user_id.decode('utf-8'), "", group, command, email))
     return users
 
 def get_all_reviwers(current_comand):
@@ -39,12 +42,15 @@ def get_all_reviwers(current_comand):
         command = ""
         if client.exists(user_id, "command"):
             command = client.hget(user_id, "command")
+        email = ""
+        if client.exists(user_id, "email"):
+            command = client.hget(user_id, "email")
         the_same_command = str(current_comand) == str(command)
         print("the_same_command current" + str(current_comand) + "another user command " + str(command))
         sys.stdout.flush()
         if is_active & is_real & the_same_command:
             name = client.hget(user_id, "name").decode('utf-8')
-            users.append(User(user_id.decode('utf-8'), name, group, command))
+            users.append(User(user_id.decode('utf-8'), name, group, command, email))
     return users
 
 
@@ -58,7 +64,10 @@ def get_current_user(current_user_id):
             command = ""
             if client.exists(current_user_id, "command"):
                 command = client.hget(current_user_id, "command")
-            return User(current_user_id, "", group, command)
+            email = ""
+            if client.exists(current_user_id, "email"):
+                command = client.hget(current_user_id, "email")
+            return User(current_user_id, "", group, command, email)
 
 
 def create_reviewer(user_id, name, group, command, email):

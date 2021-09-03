@@ -42,6 +42,10 @@ def random_user_generator(ack, say, command):
     random_users = get_random_reviewer(command["user_id"], group)
     if len(random_users) == 2:
         say(f"{name} Ваш ревьювер <@{random_users[0].id}> и <@{random_users[1].id}> 🤘")
+        if random_users[0].email != "":
+            say(f"{random_users[0].email}")
+        if random_users[1].email != "":
+            say(f"{random_users[1].email}")
     else:
         say(f"{name} Что-то пошло не так - напиши Гуле")
 

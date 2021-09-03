@@ -42,10 +42,8 @@ def random_user_generator(ack, say, command):
     random_users = get_random_reviewer(command["user_id"], group)
     if len(random_users) == 2:
         say(f"{name} Ваш ревьювер <@{random_users[0].id}> и <@{random_users[1].id}> 🤘")
-        if random_users[0].email != "":
-            say(f"{random_users[0].email.decode('utf-8')}")
-        if random_users[1].email != "":
-            say(f"{random_users[1].email.decode('utf-8')}")
+        if random_users[0].email != "" & random_users[1].email != "":
+            say(f"{random_users[0].email.decode('utf-8')} {random_users[1].email.decode('utf-8')}")
     else:
         say(f"{name} Что-то пошло не так - напиши Гуле")
 
@@ -113,21 +111,21 @@ def users():
 
 @flask_app.route("/add_users", methods=["GET"])
 def add_users():
-    create_reviewer("U020CBH88P3", "", "selfservice", "android", "amir_konovalov@epam.com")
-    create_reviewer("U020CKXKH7Z", "", "selfservice", "android", "dmitrii_kleshchin@epam.com")
-    create_reviewer("U01FKQYQGLR", "", "promofabric", "android", "vmikhaylov@at-consulting.ru")
-    create_reviewer("U01FZ4BJB9T", "", "promofabric", "android", "Aliaksandra_Makouskaya1@epam.com")
-    create_reviewer("URR35V6FJ", "", "personalization", "android", "kpersidskiy@fil-it.ru")
-    create_reviewer("U0216UATCV8", "", "personalization", "android", "dgolubev@fil-it.ru")
-    create_reviewer("U01F01CNYMA", "", "appinstore", "android", "mseytzhanov@fil-it.ru")
-    create_reviewer("UQFFPUG94", "", "credits", "android", "Anton.Sobolev@mvideo.ru")
-    create_reviewer("UFJGZFJCW", "", "credits", "android", "evgeny.komkov@mvideo.ru")
-    create_reviewer("U019VA4M1MH", "", "credits", "android", "Dmitriy_Grigorev1@epam.com")
-    create_reviewer("UFH4PFYV8", "", "deal", "android", "mli@fil-it.ru")
-    create_reviewer("U01EWKGHE1Y", "", "loyalty", "android", "Gleb_Levinkov@epam.com")
-    create_reviewer("UQ212SH42", "", "main", "android", "ichitneev@fil-it.ru")
-    create_reviewer("U01L384JZBR", "", "main", "android", "dshaprunov@fil-it.ru")
-    add_to_command("U01LDSQAELD", "android")
+    # create_reviewer("U020CBH88P3", "", "selfservice", "android", "amir_konovalov@epam.com")
+    # create_reviewer("U020CKXKH7Z", "", "selfservice", "android", "dmitrii_kleshchin@epam.com")
+    # create_reviewer("U01FKQYQGLR", "", "promofabric", "android", "vmikhaylov@at-consulting.ru")
+    # create_reviewer("U01FZ4BJB9T", "", "promofabric", "android", "Aliaksandra_Makouskaya1@epam.com")
+    # create_reviewer("URR35V6FJ", "", "personalization", "android", "kpersidskiy@fil-it.ru")
+    # create_reviewer("U0216UATCV8", "", "personalization", "android", "dgolubev@fil-it.ru")
+    # create_reviewer("U01F01CNYMA", "", "appinstore", "android", "mseytzhanov@fil-it.ru")
+    # create_reviewer("UQFFPUG94", "", "credits", "android", "Anton.Sobolev@mvideo.ru")
+    # create_reviewer("UFJGZFJCW", "", "credits", "android", "evgeny.komkov@mvideo.ru")
+    # create_reviewer("U019VA4M1MH", "", "credits", "android", "Dmitriy_Grigorev1@epam.com")
+    # create_reviewer("UFH4PFYV8", "", "deal", "android", "mli@fil-it.ru")
+    # create_reviewer("U01EWKGHE1Y", "", "loyalty", "android", "Gleb_Levinkov@epam.com")
+    # create_reviewer("UQ212SH42", "", "main", "android", "ichitneev@fil-it.ru")
+    # create_reviewer("U01L384JZBR", "", "main", "android", "dshaprunov@fil-it.ru")
+    add_to_command("U01LDSQAELD", "ios")
     # users = get_all_users()
     # for user in users:
     #     print("user id " + str(user.id) + "user name " + str(user.name)

@@ -66,7 +66,7 @@ def get_current_user(current_user_id):
                 command = client.hget(current_user_id, "command")
             email = ""
             if client.exists(current_user_id, "email"):
-                command = client.hget(current_user_id, "email")
+                email = client.hget(current_user_id, "email")
             return User(current_user_id, "", group, command, email)
 
 

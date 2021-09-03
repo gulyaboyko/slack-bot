@@ -109,7 +109,7 @@ def users():
 
 
 @flask_app.route("/add_users", methods=["GET"])
-def users():
+def add_users():
     create_reviewer("U020CBH88P3", "", "selfservice", "android", "amir_konovalov@epam.com")
     create_reviewer("U020CKXKH7Z", "", "selfservice", "android", "dmitrii_kleshchin@epam.com")
     create_reviewer("U01FKQYQGLR", "", "promofabric", "android", "vmikhaylov@at-consulting.ru")
@@ -124,6 +124,7 @@ def users():
     create_reviewer("U01EWKGHE1Y", "", "loyalty", "android", "Gleb_Levinkov@epam.com")
     create_reviewer("UQ212SH42", "", "main", "android", "ichitneev@fil-it.ru")
     create_reviewer("U01L384JZBR", "", "main", "android", "dshaprunov@fil-it.ru")
+    add_to_command("U01LDSQAELD", "android")
     # users = get_all_users()
     # for user in users:
     #     print("user id " + str(user.id) + "user name " + str(user.name)

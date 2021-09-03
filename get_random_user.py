@@ -61,9 +61,11 @@ def get_current_user(current_user_id):
             return User(current_user_id, "", group, command)
 
 
-def create_reviewer(user_id, name, group):
+def create_reviewer(user_id, name, group, command, email):
     client.hset(user_id, 'name', name)
     client.hset(user_id, 'group', group)
+    client.hset(user_id, 'command', command)
+    client.hset(user_id, 'email', email)
     client.hset(user_id, 'isActive', "True")
 
 

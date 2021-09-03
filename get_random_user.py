@@ -102,8 +102,9 @@ def get_random_reviewer(current_user_id, group):
 
     current_user_group = (group, current_user.group)[group == ""]
 
-    print("user id " + str(current_user.id) + "user name " + str(current_user.name)
-          + "user group " + str(current_user.group) + " " + str(current_user_group) + " " + str(group))
+    print("user id " + str(current_user.id) + "user group " +
+          str(current_user.group) + " " +
+          str(current_user.command))
     sys.stdout.flush()
 
     if not reviews:
@@ -119,9 +120,6 @@ def get_random_reviewer(current_user_id, group):
     secure_random = secrets.SystemRandom()
 
     for review in reviews:
-        # print("Review user id " + str(review.id) + "user name " + str(review.name)
-        #       + "user group " + str(review.group) + str(review.command))
-        # sys.stdout.flush()
         if review.id != current_user_id:
             if review.group == current_user_group:
                 the_same_group_reviewers.append(review)
@@ -135,9 +133,6 @@ def get_random_reviewer(current_user_id, group):
         for review in all_reviews:
             if review.id != current_user_id:
                 the_same_group = review.group == current_user_group
-                # print("user from group " + str(review.name) + " " + str(review.group) + " " + str(
-                #     the_same_group) + " " + str(current_user_group))
-                # sys.stdout.flush()
                 if the_same_group:
                     the_same_group_reviewers.append(review)
 

@@ -105,7 +105,7 @@ def slack_events():
 def users():
     users = get_all_users()
     for user in users:
-        add_to_command(user.id, "ios")
+        # add_to_command(user.id, "ios")
         print("user group " + str(user.group) + "user command " + str(user.command) + "user command " + str(user.email))
         sys.stdout.flush()
     return "OK"

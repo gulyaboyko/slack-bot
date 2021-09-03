@@ -44,7 +44,7 @@ def get_all_reviwers(current_comand):
             command = client.hget(user_id, "command")
         email = ""
         if client.exists(user_id, "email"):
-            command = client.hget(user_id, "email")
+            email = client.hget(user_id, "email")
         the_same_command = str(current_comand) == str(command)
         print("the_same_command current" + str(current_comand) + "another user command " + str(command))
         sys.stdout.flush()

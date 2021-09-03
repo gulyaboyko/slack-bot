@@ -25,7 +25,7 @@ def get_all_users():
             command = client.hget(user_id, "command")
         email = ""
         if client.exists(user_id, "email"):
-            command = client.hget(user_id, "email")
+            email = client.hget(user_id, "email")
         users.append(User(user_id.decode('utf-8'), "", group, command, email))
     return users
 

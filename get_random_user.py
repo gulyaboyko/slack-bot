@@ -101,12 +101,12 @@ def mark_reviewer(user_id, is_active):
                 reviews.remove(review)
 
 
-def get_random_reviewer(current_user_id, group):
+def get_random_reviewer(current_user_id):
     global reviews
 
     current_user = get_current_user(current_user_id)
 
-    current_user_group = (group, current_user.group)[group == ""]
+    current_user_group = current_user.group
 
     print("user id " + str(current_user.id) + "user group " +
           str(current_user.group) + " " +

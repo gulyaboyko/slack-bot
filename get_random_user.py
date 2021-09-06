@@ -38,7 +38,6 @@ def get_all_reviwers(current_comand):
         is_active = False
         if client.exists(user_id, "isActive"):
             is_active = (client.hget(user_id, "isActive") or "False".encode('utf-8')).decode('utf-8') == "True"
-        is_real = client.exists(user_id, "name")
         group = ""
         if client.exists(user_id, "group"):
             group = client.hget(user_id, "group")
@@ -49,9 +48,9 @@ def get_all_reviwers(current_comand):
         if client.exists(user_id, "email"):
             email = client.hget(user_id, "email")
         the_same_command = str(current_comand) == str(command)
-        print("the_same_command current" + str(current_comand) + "another user command " + str(command))
-        sys.stdout.flush()
-        if is_active & is_real & the_same_command:
+        if is_active & the_same_command:
+            print("the_same_command current" + str(current_comand) + "another user command " + str(command))
+            sys.stdout.flush()
             name = client.hget(user_id, "name").decode('utf-8')
             users.append(User(user_id.decode('utf-8'), name, group, command, email, True))
     return users

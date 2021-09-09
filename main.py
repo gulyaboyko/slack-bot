@@ -100,12 +100,9 @@ def slack_events():
 
 @flask_app.route("/users", methods=["GET"])
 def users():
-    add_to_command("U02ACCC0RQR", "ios")
-    mark_reviewer("U02ACCC0RQR", "False")
-    # users = get_all_users()
-    # for user in users:
-    #     print("user group " + str(user.group) + "user command " + str(user.command) + "user command " + str(user.email))
-    #     sys.stdout.flush()
+    add_group("U02D9RH9QK0", "loyalty")
+    add_to_command("U02D9RH9QK0", "ios")
+    mark_reviewer("U02D9RH9QK0", "False")
     return "OK"
 
 

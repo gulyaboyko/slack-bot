@@ -98,12 +98,12 @@ def slack_events():
     # handler runs App's dispatch method
     return handler.handle(request)
 
-@flask_app.route("/users", methods=["GET"])
-def users():
-    mark_reviewer("U026XFDL8CA", "False")
-    add_group("U026XFDL8CA", "acquisition")
-    add_to_command("U026XFDL8CA", "ios")
-    return "OK"
+# @flask_app.route("/users", methods=["GET"])
+# def users():
+#     mark_reviewer("U026XFDL8CA", "False")
+#     add_group("U026XFDL8CA", "acquisition")
+#     add_to_command("U026XFDL8CA", "ios")
+#     return "OK"
 
 
 @flask_app.route("/add_users", methods=["GET"])

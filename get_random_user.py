@@ -118,7 +118,7 @@ def get_random_reviewer(current_user_id):
         return []
     if len(get_all_reviwers(current_user.command)) <= 1:
         return []
-    if reviews[0].group != current_user_group:
+    if reviews[0].command != current_user.command:
         reviews = copy.deepcopy(get_all_reviwers(current_user.command))
 
     users = []

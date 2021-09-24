@@ -60,7 +60,7 @@ def random_user_generator(ack, say, command):
     ack()
     name = get_user_info(command["user_id"])
     group = command["text"].casefold().strip()
-    create_reviewer(command["user_id"], name, group, "", "")
+    create_reviewer(command["user_id"], name, group, "ios", "")
     say(f"{name} Вы успешно добавлены как ревьювер")
 
 
@@ -100,9 +100,9 @@ def slack_events():
 
 @flask_app.route("/users", methods=["GET"])
 def users():
-    mark_reviewer("U02571MS3D1", "True")
-    add_group("U02571MS3D1", "acquisition")
-    add_to_command("U02571MS3D1", "android")
+    # mark_reviewer("U02571MS3D1", "True")
+    # add_group("U02571MS3D1", "acquisition")
+    add_to_command("U01DRQFPB8X", "ios")
     return "OK"
 
 

@@ -1,5 +1,5 @@
 from get_random_user import get_random_reviewer, create_reviewer, mark_reviewer, add_group, \
-                            get_all_reviwers, get_all_users, add_to_command
+                            get_all_reviwers, get_all_users, add_to_command, add_email
 from user import User
 import os
 # Use the package we installed
@@ -102,7 +102,9 @@ def slack_events():
 def users():
     # mark_reviewer("U02571MS3D1", "True")
     # add_group("U02571MS3D1", "acquisition")
-    add_to_command("U01DRQFPB8X", "ios")
+    # add_to_command("U01DRQFPB8X", "ios")
+    add_email("U026CGA1VUK", "Evgeny.Pavlov@mvideo.ru")
+    add_email("U02571MS3D1", "mykola.tatarenkov@dxc.com")
     return "OK"
 
 

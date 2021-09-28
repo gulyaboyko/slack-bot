@@ -87,6 +87,10 @@ def add_group(user_id, group):
     client.hset(user_id, 'group', group)
 
 
+def add_email(user_id, email):
+    client.hset(user_id, 'email', email)
+
+
 def add_to_command(user_id, command):
     client.hset(user_id, 'command', command)
 

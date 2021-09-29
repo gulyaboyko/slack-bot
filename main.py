@@ -102,9 +102,9 @@ def slack_events():
 def users():
     # mark_reviewer("U02571MS3D1", "True")
     # add_group("U02571MS3D1", "acquisition")
-    # add_to_command("U01DRQFPB8X", "ios")
-    add_email("U026CGA1VUK", "Evgeny.Pavlov@mvideo.ru")
-    add_email("U02571MS3D1", "mykola.tatarenkov@dxc.com")
+    add_to_command("U029VP39JTU", "android")
+    # add_email("U026CGA1VUK", "Evgeny.Pavlov@mvideo.ru")
+    # add_email("U02571MS3D1", "mykola.tatarenkov@dxc.com")
     return "OK"
 
 

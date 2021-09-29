@@ -51,8 +51,8 @@ def get_all_reviwers(current_comand):
         if is_active & the_same_command:
             print("the_same_command current" + str(current_comand) + "another user command " + str(command))
             sys.stdout.flush()
-            name = client.hget(user_id, "name").decode('utf-8')
-            users.append(User(user_id.decode('utf-8'), name, group, command, email, True))
+            # name = client.hget(user_id, "name").decode('utf-8')
+            users.append(User(user_id.decode('utf-8'), "", group, command, email, True))
     return users
 
 

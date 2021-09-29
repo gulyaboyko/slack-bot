@@ -100,10 +100,10 @@ def slack_events():
 
 @flask_app.route("/users", methods=["GET"])
 def users():
-    # mark_reviewer("U02571MS3D1", "True")
+    mark_reviewer("U029VP39JTU", "True")
     # add_group("U02571MS3D1", "acquisition")
     add_to_command("U029VP39JTU", "android")
-    # add_email("U026CGA1VUK", "Evgeny.Pavlov@mvideo.ru")
+    add_email("U029VP39JTU", "german_proshunin@epam.com")
     # add_email("U02571MS3D1", "mykola.tatarenkov@dxc.com")
     return "OK"
 

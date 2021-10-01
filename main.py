@@ -100,12 +100,12 @@ def slack_events():
 
 @flask_app.route("/users", methods=["GET"])
 def users():
-    create_reviewer("U02EDGXSGP5", "", "selfservice", "ios", "")
-    mark_reviewer("U02EDGXSGP5", "True")
-    mark_reviewer("U02475MBSBS", "False")
-    create_reviewer("U01T2LHJANS", "", "personalprice", "android", "Andrei_Lunev@epam.com")
-    mark_reviewer("U01T2LHJANS", "True")
-    # add_group("U02571MS3D1", "selfservice")
+    # create_reviewer("U02EDGXSGP5", "", "selfservice", "ios", "")
+    # mark_reviewer("U02EDGXSGP5", "True")
+    # mark_reviewer("U02475MBSBS", "False")
+    # create_reviewer("U01T2LHJANS", "", "personalprice", "android", "Andrei_Lunev@epam.com")
+    # mark_reviewer("U01T2LHJANS", "True")
+    add_group("U01T2LHJANS", "deal")
     # add_to_command("U029VP39JTU", "android")
     # add_email("U029VP39JTU", "german_proshunin@epam.com")
     # add_email("U02571MS3D1", "mykola.tatarenkov@dxc.com")

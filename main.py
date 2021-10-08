@@ -105,7 +105,7 @@ def users():
     # mark_reviewer("U02475MBSBS", "False")
     # create_reviewer("U01T2LHJANS", "", "personalprice", "android", "Andrei_Lunev@epam.com")
     # mark_reviewer("U01T2LHJANS", "True")
-    add_group("U01T2LHJANS", "deal")
+    add_group("U01AVKUKECC", "credit")
     # add_to_command("U029VP39JTU", "android")
     # add_email("U029VP39JTU", "german_proshunin@epam.com")
     # add_email("U02571MS3D1", "mykola.tatarenkov@dxc.com")

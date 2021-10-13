@@ -45,9 +45,9 @@ def random_user_generator(ack, say, command):
         if random_users[1].email != "":
             say(f"{random_users[1].email.decode('utf-8')}")
         if secrets.randbelow(10) == 1:
-            print("Поправил главную - добавь парней из main team! ")
+            say(f"Поправил главную - добавь парней из main team! ")
         elif secrets.randbelow(10) == 1:
-            print("А ты не забываешь добавить в ревьюверы владельцев кода который ты правишь? ")
+            say(f"А ты не забываешь добавить в ревьюверы владельцев кода который ты правишь? ")
     else:
         say(f"{name} Что-то пошло не так - напиши Гуле")
 

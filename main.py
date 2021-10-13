@@ -8,6 +8,7 @@ from slack_sdk import WebClient
 from flask import Flask, request
 from slack_bolt.adapter.flask import SlackRequestHandler
 import sys
+import secrets
 
 # Slack bolt - wtf
 app = App(
@@ -43,6 +44,10 @@ def random_user_generator(ack, say, command):
             say(f"{random_users[0].email.decode('utf-8')}")
         if random_users[1].email != "":
             say(f"{random_users[1].email.decode('utf-8')}")
+        if secrets.randbelow(10) == 1:
+            print("Поправил главную - добавь парней из main team! ")
+        elif secrets.randbelow(10) == 1:
+            print("А ты не забываешь добавить в ревьюверы владельцев кода который ты правишь? ")
     else:
         say(f"{name} Что-то пошло не так - напиши Гуле")
 

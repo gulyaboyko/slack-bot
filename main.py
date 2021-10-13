@@ -41,9 +41,9 @@ def random_user_generator(ack, say, command):
     secrets_generator = secrets.SystemRandom()
     if len(random_users) == 2:
         say(f"{name} Ваш ревьювер <@{random_users[0].id}> и <@{random_users[1].id}> 🤘")
-        if random_users[0].email != "":
+        if random_users[0].email != "" and random_users[0].email is not None:
             say(f"{random_users[0].email.decode('utf-8')}")
-        if random_users[1].email != "":
+        if random_users[1].email != "" and random_users[1].email is not None:
             say(f"{random_users[1].email.decode('utf-8')}")
         if secrets_generator.randint(0, 5) == 1:
             say(f"Поправил главную - добавь парней из main team! ")

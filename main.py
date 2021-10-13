@@ -49,6 +49,8 @@ def random_user_generator(ack, say, command):
             say(f"Поправил главную - добавь парней из main team! ")
         elif secrets_generator.randint(0, 5) == 1:
             say(f"А ты не забываешь добавить в ревьюверы владельцев кода который ты правишь? ")
+        print("Рандомное число " + str(secrets_generator.randint(0, 5)) + "и " + str(secrets_generator.randint(0, 5) == 1))
+        sys.stdout.flush()
     else:
         say(f"{name} Что-то пошло не так - напиши Гуле")
 

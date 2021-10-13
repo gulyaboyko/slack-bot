@@ -38,15 +38,16 @@ def random_user_generator(ack, say, command):
     ack()
     name = get_user_info(command["user_id"])
     random_users = get_random_reviewer(command["user_id"])
+    secrets_generator = secrets.SystemRandom()
     if len(random_users) == 2:
         say(f"{name} Ваш ревьювер <@{random_users[0].id}> и <@{random_users[1].id}> 🤘")
         if random_users[0].email != "":
             say(f"{random_users[0].email.decode('utf-8')}")
         if random_users[1].email != "":
             say(f"{random_users[1].email.decode('utf-8')}")
-        if secrets.randbelow(2) == 1:
+        if secrets_generator.randint(0, 5) == 1:
             say(f"Поправил главную - добавь парней из main team! ")
-        elif secrets.randbelow(2) == 1:
+        elif secrets_generator.randint(0, 5) == 1:
             say(f"А ты не забываешь добавить в ревьюверы владельцев кода который ты правишь? ")
     else:
         say(f"{name} Что-то пошло не так - напиши Гуле")

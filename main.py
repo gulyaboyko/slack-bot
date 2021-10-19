@@ -44,6 +44,8 @@ def random_user_generator(ack, say, command):
             say(f"{random_users[0].email.decode('utf-8')}")
         if random_users[1].email != "" and random_users[1].email is not None:
             say(f"{random_users[1].email.decode('utf-8')}")
+    elif len(random_users) == 3:
+        say(f"{name} Ваш ревьювер <@{random_users[0].id}> и <@{random_users[1].id}> и <@{random_users[2].id}>🤘")
     else:
         say(f"{name} Что-то пошло не так - напиши Гуле")
 
@@ -101,7 +103,13 @@ def slack_events():
 
 @flask_app.route("/users", methods=["GET"])
 def users():
-    mark_reviewer("U0256THNWDN", "False")
+    create_reviewer("U02161FJN3B", "", "", "automation", "")
+    create_reviewer("U025ZK8RW5C", "", "", "automation", "")
+    create_reviewer("U014BNP1HQS", "", "", "automation", "")
+    create_reviewer("U011HDJGVRU", "", "", "automation", "")
+    create_reviewer("U02B40QT68N", "", "", "automation", "")
+    create_reviewer("U0299R8PKUY", "", "", "automation", "")
+    add_to_command("U01LDSQAELD", "automation")
     return "OK"
 
 

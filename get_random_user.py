@@ -49,9 +49,6 @@ def get_all_reviwers(current_comand):
             email = client.hget(user_id, "email")
         the_same_command = str(current_comand) == str(command)
         if is_active & the_same_command:
-            print("the_same_command current" + str(current_comand) + "another user command " + str(command))
-            sys.stdout.flush()
-            # name = client.hget(user_id, "name").decode('utf-8')
             users.append(User(user_id.decode('utf-8'), "", group, command, email, True))
     return users
 
@@ -108,13 +105,10 @@ def get_random_reviewer(current_user_id):
     global reviews
 
     current_user = get_current_user(current_user_id)
-
     current_user_group = current_user.group
 
-    print("user id " + str(current_user.id) + "user group " +
-          str(current_user.group) + " " +
-          str(current_user.command))
-    sys.stdout.flush()
+    if current_user.command == "automation":
+        return get_three_random_reviewer(current_user_id)
 
     if not reviews:
         reviews = copy.deepcopy(get_all_reviwers(current_user.command))
@@ -172,6 +166,43 @@ def get_random_reviewer(current_user_id):
 
     if len(users) == 2:
         remove_reviewers(users[0].id, users[1].id)
+        return users
+
+
+def get_three_random_reviewer(current_user_id):
+    global reviews
+
+    current_user = get_current_user(current_user_id)
+
+    if not reviews:
+        reviews = copy.deepcopy(get_all_reviwers(current_user.command))
+    if not reviews:
+        return []
+    if len(get_all_reviwers(current_user.command)) <= 2:
+        return []
+    if reviews[0].command != current_user.command:
+        reviews = copy.deepcopy(get_all_reviwers(current_user.command))
+
+    the_same_command_reviewers = []
+
+    for review in reviews:
+        if review.id != current_user_id:
+            the_same_command_reviewers.append(review)
+
+    secure_random = secrets.SystemRandom()
+    if len(the_same_command_reviewers) >= 3:
+        users = secure_random.sample(the_same_command_reviewers, 3)
+    else:
+        reviews = copy.deepcopy(get_all_reviwers(current_user.command))
+        the_same_command_reviewers = []
+        for review in reviews:
+            if review.id != current_user_id:
+                the_same_command_reviewers.append(review)
+        users = secure_random.sample(the_same_command_reviewers, 3)
+
+    if len(users) == 3:
+        remove_reviewers(users[0].id, users[1].id)
+        remove_reviewers(users[1].id, users[2].id)
         return users
 
 

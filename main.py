@@ -39,13 +39,20 @@ def random_user_generator(ack, say, command):
     name = get_user_info(command["user_id"])
     random_users = get_random_reviewer(command["user_id"])
     if len(random_users) == 2:
-        say(f"{name} Ваш ревьювер <@{random_users[0].id}> и <@{random_users[1].id}> {command['text']} 🤘")
+        if not command['text']:
+            say(f"{name} Ваш ревьювер <@{random_users[0].id}> и <@{random_users[1].id}> {command['text']} 🤘")
+        else:
+            say(f"{name} Ваш ревьювер <@{random_users[0].id}> и <@{random_users[1].id}> 🤘")
         if random_users[0].email != "" and random_users[0].email is not None:
             say(f"{random_users[0].email.decode('utf-8')}")
         if random_users[1].email != "" and random_users[1].email is not None:
             say(f"{random_users[1].email.decode('utf-8')}")
     elif len(random_users) == 3:
-        say(f"{name} Ваш ревьювер <@{random_users[0].id}> и <@{random_users[1].id}> и <@{random_users[2].id}>  {command['text']} 🤘")
+        if not command['text']:
+            say(f"{name} Ваш ревьювер <@{random_users[0].id}> и <@{random_users[1].id}> и <@{random_users[2].id}> {command['text']} 🤘")
+        else:
+            say(
+                f"{name} Ваш ревьювер <@{random_users[0].id}> и <@{random_users[1].id}> и <@{random_users[2].id}> 🤘")
     else:
         say(f"{name} Что-то пошло не так - напиши Гуле")
 

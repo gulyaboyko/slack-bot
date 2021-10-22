@@ -39,6 +39,9 @@ def random_user_generator(ack, say, command):
     name = get_user_info(command["user_id"])
     random_users = get_random_reviewer(command["user_id"])
     if len(random_users) == 2:
+        if command["user_id"].decode('utf-8') == "U01LDSQAELD":
+            say(f"Если с понедельника вы уходите в отпуск - не забудьте убрать себя из ревьюверов! 🤘")
+            say(f"<@UFGGE710R> не забудь 🤘")
         if 'text' in command:
             say(f"{name} Ваш ревьювер <@{random_users[0].id}> и <@{random_users[1].id}> {command['text']} 🤘")
         else:

@@ -108,9 +108,10 @@ def slack_events():
     # handler runs App's dispatch method
     return handler.handle(request)
 
+
 @flask_app.route("/users", methods=["GET"])
 def users():
-    mark_reviewer("U02H5G0QDGF", "False")
+    create_reviewer("U01FVLA6ELE", "", "", "automation", "")
     return "OK"
 
 

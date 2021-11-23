@@ -111,7 +111,7 @@ def slack_events():
 
 @flask_app.route("/users", methods=["GET"])
 def users():
-    create_reviewer("U01AVSXJ0MB", "", "deal", "ios", "")
+    create_reviewer("U02K30PE0Q0", "", "", "automation", "")
     # mark_reviewer("U02EDGXSGP5", "False")
     return "OK"
 
